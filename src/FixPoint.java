@@ -8,7 +8,7 @@ public class FixPoint {
 		this(0,0,0,0);
 	}
 	
-	public FixPoint(startTime, length, xPos, yPos)
+	public FixPoint(int startTime, int length, int xPos, int yPos)
 	{
 		start = startTime;
 		len = length;
