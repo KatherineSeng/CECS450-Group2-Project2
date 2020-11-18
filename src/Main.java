@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -16,17 +18,28 @@ public class Main {
             File dir = new File(".");
             File parentDir = dir.getParentFile();
 
+            HashMap<String, Integer> treeMap = new HashMap<>();
+            HashMap<String, Integer> graphMap = new HashMap<>();
+
             // Checks if the folder exists
             if (Files.exists(Paths.get(folder))) {
                 // Graph ("indented list") fixation data
                 File graphFXD = new File(parentDir,folder + "/" + folder + ".graphFXD.txt");
+                Scanner graphReader = new Scanner(graphFXD);
                 // Tree ("graph") fixation data
                 File treeFXD = new File(parentDir,folder + "/" + folder + ".treeFXD.txt");
+                Scanner treeReader = new Scanner(treeFXD);
 
                 if (graphFXD.canRead() && treeFXD.canRead()) {
-                    // Extracts data from graph
-                    // Extracts data from tree
+                    while (treeReader.hasNext()) {
+                        treeMap.put(folder, Integer.parseInt(treeReader.next()));
+                    }
+                    while (graphReader.hasNext()) {
+                        graphMap.put(folder, Integer.parseInt(graphReader.next()));
+                    }
                 }
+                graphReader.close();
+                treeReader.close();
             }
         }
     }
