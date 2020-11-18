@@ -2,7 +2,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -12,32 +14,38 @@ public class Main {
 
         int totalParticipants = 36;
 
-        for (int i = 1; i <= totalParticipants; i++) {
+        for (int i = 1; i <= 1; i++) {
             String folder = "p" + i;
 
             File dir = new File(".");
             File parentDir = dir.getParentFile();
 
-            HashMap<String, Integer> treeMap = new HashMap<>();
-            HashMap<String, Integer> graphMap = new HashMap<>();
+            HashMap<String, List<Integer>> treeMap = new HashMap<>();
+            HashMap<String, List<Integer>> graphMap = new HashMap<>();
 
             // Checks if the folder exists
             if (Files.exists(Paths.get(folder))) {
                 // Graph ("indented list") fixation data
                 File graphFXD = new File(parentDir,folder + "/" + folder + ".graphFXD.txt");
                 Scanner graphReader = new Scanner(graphFXD);
+                List<Integer> graphList = new ArrayList<>();
                 // Tree ("graph") fixation data
                 File treeFXD = new File(parentDir,folder + "/" + folder + ".treeFXD.txt");
                 Scanner treeReader = new Scanner(treeFXD);
+                List<Integer> treeList = new ArrayList<>();
 
                 if (graphFXD.canRead() && treeFXD.canRead()) {
-                    while (treeReader.hasNext()) {
-                        treeMap.put(folder, Integer.parseInt(treeReader.next()));
-                    }
                     while (graphReader.hasNext()) {
-                        graphMap.put(folder, Integer.parseInt(graphReader.next()));
+                        graphList.add(Integer.parseInt(graphReader.next()));
                     }
+                    while (treeReader.hasNext()) {
+                        treeList.add(Integer.parseInt(treeReader.next()));
+                    }
+                    graphMap.put(folder, graphList);
+                    treeMap.put(folder, treeList);
                 }
+                //System.out.println(treeMap.get(folder));
+                //System.out.println(graphMap.get(folder));
                 graphReader.close();
                 treeReader.close();
             }
