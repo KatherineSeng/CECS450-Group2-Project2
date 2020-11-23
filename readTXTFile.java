@@ -1,5 +1,6 @@
-package main.java.main;
+package main.java.main;//package main.java.main;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.io.*;
@@ -14,40 +15,41 @@ public class readTXTFile {
 
         int totalParticipants = 36;
 
-        JsonObject jsonObj;
+        JsonArray jsonArr = new JsonArray();
+        JsonObject jsonObj = new JsonObject();
+
+        jsonObj.addProperty("Fix Point", 0);
+        jsonObj.addProperty("Start Time", 0);
+        jsonObj.addProperty("Length", 0);
+        jsonObj.addProperty("X Position", 0);
+        jsonObj.addProperty("Y Position", 0);
 
         for (int i = 1; i <= totalParticipants; i++) {
-            String folder = "p" + i;
+            String pFolder = "p" + i;
 
-            if (Files.exists(Paths.get(folder))) {
-                File graphFXD = new File(parentDir, folder + "/" + folder + ".graphFXD.txt");
+            if (Files.exists(Paths.get(pFolder))) {
+                File graphFXD = new File(parentDir, pFolder + "/" + pFolder + ".graphFXD.txt");
                 Scanner graphReader = new Scanner(graphFXD);
 
-                File treeFXD = new File(parentDir, folder + "/" + folder + ".treeFXD.txt");
+                File treeFXD = new File(parentDir, pFolder + "/" + pFolder + ".treeFXD.txt");
                 Scanner treeReader = new Scanner(treeFXD);
 
                 // If folder exists
                 if (graphFXD.canRead() && treeFXD.canRead()) {
-                    String tree = "FXDTree" + ".json";
-                    String graph = "FXDGraph" + ".json";
+                    String jsonFile = pFolder + ".json";
 
-                    // Creating a json file with data regarding participants' graph fxd data
                     jsonObj = new JsonObject();
                     while (graphReader.hasNext()) {
-                        jsonObj.addProperty(folder, graphReader.next());
+                        jsonObj.addProperty(pFolder, graphReader.next());
                     }
-                    FileWriter gFile = new FileWriter(graph);
-                    gFile.write(jsonObj.toString());
-                    gFile.close();
-
-                    // Creating a json file with data regarding participants' tree fxd data
                     jsonObj = new JsonObject();
                     while (treeReader.hasNext()) {
-                        jsonObj.addProperty(folder, treeReader.next());
+                        jsonObj.addProperty(pFolder, treeReader.next());
                     }
-                    FileWriter tFile = new FileWriter(tree);
-                    tFile.write(jsonObj.toString());
-                    tFile.close();
+
+                    FileWriter gFile = new FileWriter(jsonFile);
+                    gFile.write(jsonObj.toString());
+                    gFile.close();
                 }
             }
         }
