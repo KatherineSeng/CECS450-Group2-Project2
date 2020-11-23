@@ -21,4 +21,6 @@ Running the Java Program
 
 3) Add the "json-20200518.jar" file to your project dependencies
 
-4) Run files
+4) Run "Main.java" file
+
+5) 
