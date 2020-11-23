@@ -1,0 +1,14 @@
+{
+  "name": "@pikakashi/untitled",
+  "main": "cb27addedaf8afc6@466.js",
+  "version": "466.0.0",
+  "homepage": "https://observablehq.com/@pikakashi/untitled",
+  "author": {
+    "name": "Pikakashi",
+    "url": "https://observablehq.com/@pikakashi"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4"
+  }
+}
